@@ -11,6 +11,8 @@ class App(object):
         self.grid = Grid()  # переменная класса сетки
         self.objects = []  # набор объектов
 
+        self.grid.create_perlin_map()
+
         self.objects.append(self.grid)  # добавляем объекты в список
 
     def update(self):
@@ -27,9 +29,12 @@ class App(object):
     def run(self):  # метод, который отвечает за бесконечный цикл программы
         while self.running:
             for event in pygame.event.get():
-                self.event_handler()
+                self.event_handler(event)
 
             self.update()
+
+            self.draw()
+            pygame.display.update()
 
     def draw(self):  # метод отрисовки
         self.screen.fill(WHITE)

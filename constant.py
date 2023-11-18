@@ -17,3 +17,5 @@ y_global_coord_grid = 0
 # количество строк и столбцов сетки
 numbers_height_grid = 150
 numbers_width_grid = 150
+
+cell_sise = 4  # размер элемента сетки
