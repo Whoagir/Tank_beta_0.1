@@ -5,12 +5,15 @@ import pygame
 class Tank:
     def __init__(self, app, pos):
         self.x, self.y = pos
-        self.angle = 0
-        self.vel = 0
-        self.rotation_vel = 0
-        self.rotation_speed = 25
-        self.speed = 100
-        self.acceleration = 1
+
+        self.angle = 0  # угол поворота
+        self.vel = 0  # текущая скорость
+        self.rotation_vel = 0  # направление поворота
+
+        self.rotation_speed = 25  # скорость поворота
+        self.speed = 100  # максимальная скорость
+        self.acceleration = 1  # ускорение
+
         self.base_image = pygame.image.load('assets/tank/Straight/Sprite-0001.png').convert_alpha()
         self.base_image = pygame.transform.rotate(self.base_image, -90)
 
@@ -22,20 +25,6 @@ class Tank:
 
         self.x += dx
         self.y += dy
-
-    def rotate(self, left=None, right=None, stop=None):
-        if left:
-            self.rotation_vel = self.rotation_speed
-        if right:
-            self.rotation_vel = -self.rotation_speed
-        if stop:
-            self.rotation_vel = 0
-
-    def move_forward(self):
-        self.vel = min(self.vel + self.acceleration, self.speed)
-
-    def reduce_speed(self):
-        self.vel = max(self.vel - self.acceleration * 2, 0)
 
     def draw(self, screen):
         rotated_img = pygame.transform.rotate(self.base_image, self.angle)
@@ -58,3 +47,17 @@ class Tank:
             self.reduce_speed()
         if not rotated:
             self.rotate(stop=True)
+
+    def move_forward(self):
+        self.vel = min(self.vel + self.acceleration, self.speed)
+
+    def rotate(self, left=None, right=None, stop=None):
+        if left:
+            self.rotation_vel = self.rotation_speed
+        if right:
+            self.rotation_vel = -self.rotation_speed
+        if stop:
+            self.rotation_vel = 0
+
+    def reduce_speed(self):
+        self.vel = max(self.vel - self.acceleration * 2, 0)
