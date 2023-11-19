@@ -2,6 +2,7 @@ import math
 import pygame
 
 
+# класс, отвечающий за все, что связано с танком (анимации, движение, коллизия и т.п.)
 class Tank:
     def __init__(self, app, pos):
         self.x, self.y = pos
