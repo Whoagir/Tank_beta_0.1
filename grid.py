@@ -1,20 +1,23 @@
 import random
 import pygame
-from constant import *
+from config import *
 from numpy import floor
 from perlin_noise import PerlinNoise
 
 
 # класс сетки
 class Grid(object):
-    ''' ВАЖНО ПОНИМАТЬ, ЧТО СЕТКА ИМЕЕТ ВИД dict[(local_x, local_y)] = ((global_x, global_y), heights)
-    key = (local_x, local_y) values = ((global_x, global_y), heights) '''
+    ''' ВАЖНО ПОНИМАТЬ, ЧТО СЕТКА ИМЕЕТ ВИД dict[(local_x, local_y)] = ((global_x, global_y), height)
+    key = (local_x, local_y) values = ((global_x, global_y), height) '''
     def __init__(self):  # создаем переменную "сетки", указываем её тип (словарь)
         self.grid = dict()
 
         self.heights = []
 
-    def update(self):
+    def update(self, dt):
+        pass
+
+    def input(self, key_pressed):
         pass
 
     def draw(self, screen):
@@ -59,6 +62,3 @@ class Grid(object):
         seed = random.randint(1000, 3000)
         heights = self.generate_perlin_noise(seed)
         self.completion(heights)
-
-    def get(self):  # получаем сетку по запросу
-        return self.grid
