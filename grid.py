@@ -62,3 +62,6 @@ class Grid(object):
         seed = random.randint(1000, 3000)
         heights = self.generate_perlin_noise(seed)
         self.completion(heights)
+
+    def get(self):  # получаем сетку по запросу
+        return self.grid

@@ -22,3 +22,7 @@ numbers_height_grid = 150
 numbers_width_grid = 150
 
 cell_sise = 4  # размер элемента сетки
+
+# размеры танка
+tank_width = 10  # 38 пикселей
+tank_height = 12  # 43 пикселей

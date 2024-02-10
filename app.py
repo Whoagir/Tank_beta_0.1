@@ -2,6 +2,8 @@ import pygame
 import config
 from grid import Grid
 from tank import Tank
+from rect import Rect
+from bullet import Bullet
 
 
 # основной класс в котором происходят все события
@@ -16,13 +18,21 @@ class App(object):
         self.grid = Grid()  # переменная класса сетки
         self.objects.append(self.grid)  # добавляет объект сетка в список
         self.grid.create_perlin_map()
+        self.grid_dict = self.grid.get()
+
+        self.rect = Rect()
 
         self.tank = Tank(self, (100, 100))  # экземпляр танка
+        self.tank_box = self.rect.collision_pos((100, 100), config.tank_width, config.tank_height)
         self.objects.append(self.tank)  # добавляет объект танк в список
+
+        self.bullets = []
 
     def update(self, dt):
         for obj in self.objects:
             obj.update(dt)
+        for bull in self.bullets:
+            bull.fly(dt)
 
     def event_handler(self, event):  # обработчик событий
         if event.type == pygame.QUIT:
@@ -30,8 +40,10 @@ class App(object):
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.stop()
+            if event.key == pygame.K_g:
+                self.bullets.append(Bullet((self.tank.x, self.tank.y), self, self.tank.rotate, self.tank))
 
-    def input(self):
+    def input(self):  # метод, который проверяет нажатие клавиш
         for obj in self.objects:
             obj.input(pygame.key.get_pressed())
 
@@ -43,8 +55,16 @@ class App(object):
             dt = self.clock.tick(config.FPS)/1000
 
             self.input()
+            self.border_map()
             self.update(dt)
             self.draw()
+
+    def border_map(self):  # метод, в котором проверяется выход снаряда за карту
+        for bull in self.bullets:
+            if bull.x > 150 or bull.x < 0:
+                self.bullets.pop(self.bullets.index(bull))
+            if bull.y > 150 or bull.y < 0:
+                self.bullets.pop(self.bullets.index(bull))
 
     def draw(self):  # метод отрисовки
         self.screen.fill(config.WHITE)
@@ -52,6 +72,9 @@ class App(object):
         for obj in self.objects:
             obj.draw(self.screen)
         pygame.display.update()
+
+        for bull in self.bullets:
+            bull.draw(self.screen)
 
     def stop(self):
         self.running = False
