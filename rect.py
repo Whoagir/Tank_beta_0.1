@@ -1,8 +1,9 @@
+# класс, отвечающий за вычисление крайних точек объектов
 class Rect:
     def __init__(self):
         pass
 
-    def collision_pos(self, center, width, height):
+    def collision_pos(self, center, width, height):  # метод, в котором вычисляются крайние точки объекта
         x0, y0 = center
 
         x1 = x0 - width // 2

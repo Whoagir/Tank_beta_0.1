@@ -12,15 +12,15 @@ class Grid(object):
     def __init__(self):  # создаем переменную "сетки", указываем её тип (словарь)
         self.grid = dict()
 
-        self.heights = []
+        self.heights = []  # набор высот
 
-    def update(self, dt):
+    def update(self, dt):  # ???
         pass
 
-    def input(self, key_pressed):
+    def input(self, key_pressed):  # ???
         pass
 
-    def draw(self, screen):
+    def draw(self, screen):  # метод отрисовки сетки
         for i in range(numbers_width_grid + 1):
             for j in range(numbers_height_grid + 1):
                 inf = self.grid[(i, j)]
@@ -30,7 +30,8 @@ class Grid(object):
                     rect = pygame.Rect(inf[0][0]-3, inf[0][1]+3, cell_sise, cell_sise)
                     pygame.draw.rect(screen, color, rect)
 
-    def completion(self, heights: list):  # генерируем сетку, где ключ у нас локальные координаты, а значения это глобальные координаты и высота
+    def completion(self, heights: list):  # генерируем сетку, где ключ у нас локальные координаты,
+        # а значения это глобальные координаты и высота (переводим локальные координаты в глобальные + получаем высоты)
         for i in range(numbers_width_grid + 1):
             for j in range(numbers_height_grid + 1):
                 self.grid[(i, j)] = (x_global_coord_grid + width * i / numbers_width_grid - width / (numbers_width_grid * 2),

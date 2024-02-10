@@ -9,7 +9,7 @@ from bullet import Bullet
 # основной класс в котором происходят все события
 class App(object):
     def __init__(self):  # метод инициализации
-        self.screen = pygame.display.set_mode((config.WIN_WIDTH, config.WIN_HEIGHT))  # что бы окошечко было
+        self.screen = pygame.display.set_mode((config.WIN_WIDTH, config.WIN_HEIGHT))  # чтобы окошечко было
         self.running = True  # переменная что бы работал главный цикл
         self.clock = pygame.time.Clock()
 
@@ -20,13 +20,13 @@ class App(object):
         self.grid.create_perlin_map()
         self.grid_dict = self.grid.get()
 
-        self.rect = Rect()
+        self.rect = Rect()  # переменная класса rect
 
         self.tank = Tank(self, (100, 100))  # экземпляр танка
-        self.tank_box = self.rect.collision_pos((100, 100), config.tank_width, config.tank_height)
+        self.tank_box = self.rect.collision_pos((100, 100), config.tank_width, config.tank_height)  # получаем точки танка
         self.objects.append(self.tank)  # добавляет объект танк в список
 
-        self.bullets = []
+        self.bullets = []  # список выпущенных снарядов
 
     def update(self, dt):
         for obj in self.objects:
@@ -52,7 +52,7 @@ class App(object):
             for event in pygame.event.get():
                 self.event_handler(event)
 
-            dt = self.clock.tick(config.FPS)/1000
+            dt = self.clock.tick(config.FPS)/1000  # вычисляем delta time
 
             self.input()
             self.border_map()
@@ -76,7 +76,7 @@ class App(object):
         for bull in self.bullets:
             bull.draw(self.screen)
 
-    def stop(self):
+    def stop(self):  # останавливаем работу кода
         self.running = False
 
 

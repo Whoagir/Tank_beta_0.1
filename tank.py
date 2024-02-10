@@ -2,9 +2,9 @@ import math
 import pygame
 
 
-# класс, отвечающий за все, что связано с танком (анимации, движение, коллизия и т.п.)
+# класс, отвечающий за все, что связано с танком (анимации, движение и т.п.)
 class Tank:
-    def __init__(self, app, pos):
+    def __init__(self, app, pos):  # метод инициализации танка
         self.x, self.y = pos  # позиция танка
 
         self.angle = 0  # угол поворота
@@ -16,8 +16,8 @@ class Tank:
         self.front_speed = -25  # максимальная скорость назад
         self.acceleration = 1  # ускорение
 
-        self.base_image = pygame.image.load('assets/tank/Straight/Sprite-0001.png').convert_alpha()
-        self.base_image = pygame.transform.rotate(self.base_image, -90)  # изображение танка
+        self.base_image = pygame.image.load('assets/tank/Straight/Sprite-0001.png').convert_alpha()  # изображение танка
+        self.base_image = pygame.transform.rotate(self.base_image, -90)  # повернутое изображение танка
 
     def update(self, dt):  # метод, отвечающий за изменение положения в пространстве
         self.angle += self.rotation_vel * dt
@@ -65,7 +65,7 @@ class Tank:
     def reduce_speed(self):  # метод, отвечающий за инерцию
         self.vel = max(self.vel - self.acceleration * 2, 0)
 
-    def draw(self, screen):  # метод отрисовки
+    def draw(self, screen):  # метод отрисовки танка
         rotated_img = pygame.transform.rotate(self.base_image, self.angle)
         rect = rotated_img.get_rect(center=(self.x, self.y))
         screen.blit(rotated_img, rect)
