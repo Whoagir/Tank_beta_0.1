@@ -11,7 +11,6 @@ class Grid(object):
     key = (local_x, local_y) values = ((global_x, global_y), height) '''
     def __init__(self):  # создаем переменную "сетки", указываем её тип (словарь)
         self.grid = dict()
-
         self.heights = []  # набор высот
 
     def update(self, dt):  # ???
